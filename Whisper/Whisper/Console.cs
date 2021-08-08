@@ -23,13 +23,70 @@
  *	
  */
 
+using System.Collections.Generic;
+
 namespace Whisper
 {
 	public class Console
 	{
+		private static List<IRumor> rumors;
+
+		private static void AddRumor()
+		{
+			System.Console.WriteLine(">: ");
+			var content = System.Console.ReadLine();
+			rumors.Add(new Rumor(content));
+		}
+
+		private static void PrintRumors()
+		{
+			foreach (var rumor in rumors)
+			{
+				System.Console.WriteLine("Rumor ID: " + rumor.Id);
+				System.Console.WriteLine(rumor.Content);
+			}
+		}
+
 		public static void Main()
 		{
-			System.Console.WriteLine("Whisper");
+			System.Console.Write("\n");
+			System.Console.WriteLine("\t\t__        ___     _                     ");
+			System.Console.WriteLine("\t\t\\ \\      / / |__ (_)___ _ __   ___ _ __ ");
+			System.Console.WriteLine("\t\t \\ \\ /\\ / /| '_ \\| / __| '_ \\ / _ \\ '__|");
+			System.Console.WriteLine("\t\t  \\ V  V / | | | | \\__ \\ |_) |  __/ |   ");
+			System.Console.WriteLine("\t\t   \\_/\\_/  |_| |_|_|___/ .__/ \\___|_|   ");
+			System.Console.WriteLine("\t\t                       |_|              ");
+			System.Console.Write("\n\t*** Copyright (c) Lorenzo Billi - All rights reserved ***\n\n");
+
+			var quit = false;
+			Rumor.LastId = 0;
+			rumors = new List<IRumor>();
+
+			while (!quit)
+			{
+				System.Console.WriteLine("1) Add new rumor");
+				System.Console.WriteLine("2) Show all rumors");
+				System.Console.WriteLine("3) Exit");
+				System.Console.Write(">: ");
+
+				var option = System.Console.ReadLine();
+				
+				switch (option)
+				{
+					case "1":
+						AddRumor();
+						break;
+					case "2":
+						PrintRumors();
+						break;
+					case "3":
+						quit = true;
+						break;
+					default:
+						System.Console.WriteLine("Invalid option selected.");
+						break;
+				}
+			}
 		}
 	}
 }
